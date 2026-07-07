@@ -1,3 +1,9 @@
 <% if Setting.plugin_redmine_shortcuts['enable_issue_shortcuts'] == '1' %>
+  <script type="text/javascript">
+    // Expose the Rails relative URL root (e.g. "/redmine") so the plugin's
+    // hotkey handlers can build correct URLs when Redmine is mounted under
+    // a sub-URI (REDMINE_RELATIVE_URL_ROOT).
+    var redmineShortcutsUrlRoot = <%= raw Redmine::Utils.relative_url_root.to_s.to_json %>;
+  </script>
   <%= javascript_include_tag 'view_layouts_base_html_head', :plugin => 'redmine_shortcuts' %>
 <% end %>

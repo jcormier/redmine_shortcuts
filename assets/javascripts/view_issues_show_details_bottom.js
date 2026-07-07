@@ -42,7 +42,8 @@ $(document).keydown(function (e) {
                         return;
                     }
                 }
-                processLink(link, '/issues');
+                var urlRoot = (typeof redmineShortcutsUrlRoot !== 'undefined') ? redmineShortcutsUrlRoot : '';
+                processLink(link, urlRoot + '/issues');
                 e.preventDefault();
             // E
             } else if (e.keyCode == 69) {

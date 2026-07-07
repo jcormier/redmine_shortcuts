@@ -1,3 +1,8 @@
 <% if Setting.plugin_redmine_shortcuts['enable_issue_shortcuts'] == '1' %>
+  <script type="text/javascript">
+    // See _view_layouts_base_html_head.html.erb - keeps the relative URL
+    // root available in case this hook renders before the head hook.
+    var redmineShortcutsUrlRoot = <%= raw Redmine::Utils.relative_url_root.to_s.to_json %>;
+  </script>
   <%= javascript_include_tag 'view_issues_show_details_bottom', :plugin => 'redmine_shortcuts' %>
 <% end %>
