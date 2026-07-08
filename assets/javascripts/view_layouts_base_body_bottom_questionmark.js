@@ -1,9 +1,15 @@
 // Question Mark.
-var baseUrl = $("head link[rel='stylesheet']:first").attr('href').replace(/stylesheets.+$/, '');
+// Build the help URL from the Rails relative URL root exposed by the head hook
+// (redmineShortcutsUrlRoot, e.g. "/redmine" or ""). The old approach of stripping
+// "stylesheets/..." off the first stylesheet href breaks on Redmine 6 / propshaft,
+// where the first stylesheet is a fingerprinted plugin asset (e.g.
+// plugin_assets/additionals/variables-<digest>.css) with no "stylesheets/"
+// segment, so nothing was stripped and the iframe src became garbage (404).
+var urlRoot = (typeof redmineShortcutsUrlRoot !== 'undefined') ? redmineShortcutsUrlRoot : '';
 $questionMarkModalRoot = $('<div class="question-mark-modal-root" />');
 $questionMarkModal = $('<div class="question-mark-modal"><span aria-label="Close" aria-role="button" class="question-mark--close"/></div>')
 $questionMarkModalRoot.append($questionMarkModal);
-$questionMarkModal.append('<iframe width="500px" height="500px" src="' + baseUrl + 'redmine_shortcuts/help" />');
+$questionMarkModal.append('<iframe width="500px" height="500px" src="' + urlRoot + '/redmine_shortcuts/help" />');
 $('body').append($questionMarkModalRoot);
 $(document).on('keypress', function(e) {
   e = e || window.event;
